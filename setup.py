@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
   name="igym",
-  version="0.0.2",
+  version="0.0.3",
   author="Yash Bonde",
   author_email="bonde.yash97@gmail.com",
   description="Gym for your AI to connect with the internet and play around.",
