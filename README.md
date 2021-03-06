@@ -43,10 +43,10 @@ and on ... and on ... and on. However only a few people write about the use the 
 
 This project aims to test the ability of language models to travel the internet and answer questions. If it can travel the internet, then it can answer questions far better than any human individual can based on the amount of cached information on Google.
 
-### Benchmarking
+<!-- ### Benchmarking
 
 Since there are no datasets available for this, obvio., we can check what siri does. Attached is the screenshot from Siri:
 
 <img src="./assets/wiki_elon_siri.png" height=400px>
 
-Note that the reason it gives such a beautiful response is because it is calling an API that does things.
+Note that the reason it gives such a beautiful response is because it is calling an API that does things. -->
