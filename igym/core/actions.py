@@ -100,6 +100,9 @@ class TypeInputAndPressEnter(Action):
     ele.send_keys(Keys.ENTER)
 
 
+# class
+
+
 # create a list that can be given to the user
 DefaultActions = [
     OpenLink(),

@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 
-from igym.core.actions import Action, DefaultActions
-from igym.core.environment import InternetEnv
+from .core.actions import Action, DefaultActions
+from .core.environment import InternetEnv
 
 __version__ = "0.0.3"
