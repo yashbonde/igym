@@ -40,7 +40,7 @@ The `text` of `Action` and `step()` are thus a pair and agent has to navigate th
 
 ### Sample
 
-A sample using Language models can be found in this [notebook](./notebooks/Task%20#1%20with%20GPT2XL.ipynb).
+A sample using Language models can be found in this [notebook](./notebooks/Task%20#1%20with%20GPT2.ipynb).
 
 ## Why?
 
