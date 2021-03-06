@@ -31,12 +31,36 @@ There are ofcourse challenges here such as open-ended generations and no rewards
 
 ## How?
 
-At the core of this framework is `igym.core.Action` which has two attributes and one method:
-* `Action.text`: Template string that explains the purpose of this Action in natural language
-* `Action.args`: This dictionary is automatically extracted from the `text` and before calling each action user has to fill this using `Action.fill_values()` method. Any discrepancy is automatically caught
-* `Action.step()`: This method recieves the `selenium WebDriver` object and it performs the action on the driver.
+At the core of this framework is `igym.core.Action` which has two attributes (`text` and `args`) and one method (`step`). The `text` and `step()` are thus a pair of natural language to program and agent has to navigate this to complete the objective. Consider the following example:
+```python
+class TypeInputAndPressEnter(Action):
+  def __init__(self, text="Type the following '{text}' in the input box and press Enter"):
+    ### 1 ###
+    # text: Template string that explains the purpose of this Action in natural language
+    # you can see how easy it is for any person / AI to understand what is the purpose of this
+    # action
+    super().__init__(text = text)
 
-The `text` of `Action` and `step()` are thus a pair and agent has to navigate this to complete the objective.
+  def step(self, driver):
+    ### 2 ###
+    # step(): This method recieves the `selenium WebDriver` object and it performs the
+    # action on the driver. We explicitly provide driver because there are all kinds of
+    # nuances on the internet and so it's better if human programs this.
+
+    ### 3 ###
+    # This dictionary is automatically extracted from the `text` and before
+    # calling each action user has to fill this using `Action.fill_values()` method.
+    # Any discrepancy during filling is automatically caught!
+    args = self.args
+
+    curr_url = driver.current_url
+    if "google" in curr_url: # weird subroutine for google
+      ele = driver.find_element_by_name("q")
+    else:
+      ele = driver.find_element_by_tag_name("input")
+    ele.send_keys(args["text"]) # <-------- args "text" from the template
+    ele.send_keys(Keys.ENTER)
+```
 
 ### Sample
 
