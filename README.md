@@ -1,6 +1,6 @@
 # internet-gym
 
-Gym for your AI to connect with the internet and play around. This framework is written with language models in mind as the actions are described in natural language and agent has to understand that in order to get to target. Read [how](#how) below.
+Gym for your AI to connect with the internet and play around. This framework is written with language models in mind as the actions are described in natural language and agent has to understand that in order to get to target. Read [usage](#usage) and [what](#what) below.
 
 ## Installation
 
@@ -9,9 +9,11 @@ Install using pipy as:
 pip install igym
 ```
 
+Want to know what you can do, see a list of [tasks](./tasks.md).
+
 ## Usage
 
-The syntax is same as OpenAI gym while the internals are completely different.
+Since this is an open framework, there is no hard limit on how to complete one task. The end state of the task will have to be manually checked. In a very high level abstraction, this is how it looks like:
 ```python
 from igym import InternetEnv, DefaultActions
 
@@ -20,16 +22,16 @@ env = InternetEnv("path/to/chromedriver")
 
 target = "Google Elon Musk"  # type instruction and send to your model
 while True:
-  action = model(target, DefaultActions, env.state)
+  action = model(target, DefaultActions, env)
   env.step(action)
   
-  if target_achieved:
+  if target_achieved: # <-- define your target here
     break
 ```
 
-There are ofcourse challenges here such as open-ended generations and no rewards. Still confused, check out this [notebook](./notebooks/Task%20#1.ipynb).
+You can also build your own decision tree style search while manually curating the options, "how"?. Check out this [notebook](./notebooks/Task%20#1.ipynb).
 
-## How?
+## What?
 
 At the core of this framework is `igym.core.Action` which has two attributes (`text` and `args`) and one method (`step`). The `text` and `step()` are thus a pair of natural language to program and agent has to navigate this to complete the objective. Consider the following example:
 ```python
@@ -64,7 +66,7 @@ class TypeInputAndPressEnter(Action):
 
 ### Sample
 
-A sample using Language models can be found in this [notebook](./notebooks/Task%20%231%20with%20GPT2.ipynb).
+Since this is designed with langauge models in mind, a sample can be found in this [notebook](./notebooks/Task%20%231%20with%20GPT2.ipynb).
 
 ## Why?
 
