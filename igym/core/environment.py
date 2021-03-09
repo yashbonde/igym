@@ -1,25 +1,3 @@
-# MIT License
-#
-# Copyright(c) 2021 Yash Bonde
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files(the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 from typing import List
 from selenium import webdriver
 
@@ -30,20 +8,51 @@ class InternetEnv():
     self.driver = webdriver.Chrome(path_to_chromedriver)
     if url != None:
       self.driver.get(url)
+    
+    self.step_counter = 0 # this counter is incremented everytime an action is completed
+    self.current_url = None
+    self.reset_for_new_page()
 
   def close(self):
     self.driver.close()
 
-  def step(self, action: Action = None, actions_list: List[Action] = None):
+  def reset_for_new_page(self):
+    self.elements = {}
+
+  def _register_element(self, element):
+    if element is not None:
+      self.elements.update(element)
+    self.step_counter += 1
+
+  def step(
+    self,
+    action: Action = None,
+    actions_list: List[Action] = None,
+    output_attrs: bool = False,
+  ):
     if action is None and actions_list is None:
       raise ValueError("Need to provide either `action` of `actions_list`")
     elif action is not None and actions_list is not None:
       raise ValueError("Need to provide either `action` of `actions_list`")
 
     if actions_list is not None:
-      for act in actions_list:
-        act.step(self.driver)
-
+      attrs = []
+      for action in actions_list:
+        attr = action(self.driver)
+        self._register_element(attr)
+        attrs.append(attr)
     else:
-      action.step(self.driver)
+      attr = action(self.driver)
+      self._register_element(attr)
+      attrs = [attr]
+  
+    output = []
+    if output_attrs:
+      output += attrs
 
+    new_url = self.driver.current_url
+    if new_url != self.current_url:
+      self.reset_for_new_page()
+      self.current_url = new_url
+
+    return output

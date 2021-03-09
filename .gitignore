@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 chromedriver
 .DS_Store
+playing_sele.ipynb
