@@ -91,6 +91,15 @@ class OpenLink(Action):
     driver.get(args["url"]) # open this url
 
 
+class SearchGoogleForText(Action):
+  def __init__(self, text="Command for searching {yolo} on Google.com"):
+    super().__init__(text=text)
+
+  def step(self, driver):
+    args = self.args
+    driver.get(f"https://www.google.com?q=" + args["yolo"])  # open this url
+
+
 class TypeInput(Action):
   def __init__(self, text = "Type the following '{text}' in the first input box"):
     super().__init__(text = text)
@@ -145,9 +154,16 @@ class ClickElementByPartialLinkText(Action):
 
 # create a list that can be given to the user
 DefaultActions = [
-    OpenLink(),
-    TypeInput(),
-    TypeInputAndPressEnter(),
-    GetElementsWithTag(),
-    ClickElementByPartialLinkText()
+  OpenLink(),
+  TypeInput(),
+  TypeInputAndPressEnter(),
+  GetElementsWithTag(),
+  ClickElementByPartialLinkText()
+]
+
+DefaultActionsUnInit = [
+  OpenLink,
+  TypeInput,
+  TypeInputAndPressEnter,
+  GetElementsWithTag,
 ]

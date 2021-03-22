@@ -1,0 +1,6 @@
+[
+  {"target":"Find Wikipedia entry for Google","actions":[{"id":0,"action_args":{"url":"https://www.google.com"}},{"id":2,"action_args":{"text":"Wikipedia Google"}},{ "id":4,"action_args":{"text": "Google - Wikipedia"}}]},
+  {"target":"Find Wikipedia entry for Google","actions":[{"id":0,"action_args":{"url":"https://www.bing.com"}},{"id":2,"action_args":{"text":"Google Wiki"}},{ "id":4,"action_args":{"text": "Google - Wikipedia"}}]},
+  {"target":"Find Wikipedia entry for Google","actions":[{"id": 0,"action_args":{"url":"https://en.wikipedia.org/wiki/Google"}}]},
+  {"target":"Find stackoverflow for "}
+]
