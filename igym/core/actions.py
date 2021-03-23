@@ -130,7 +130,7 @@ class TypeInputAndPressEnter(Action):
       ele = driver.find_element_by_tag_name("input")
     ele.send_keys(args["text"])
     ele.send_keys(Keys.ENTER)
-    return ele
+    return None
 
   
 class GetElementsWithTag(Action):
